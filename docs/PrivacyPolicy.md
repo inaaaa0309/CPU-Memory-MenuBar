@@ -2,14 +2,7 @@
 This privacy policy applies to the CPU & Memory MenuBar app (hereby referred to as "Application") for macOS devices that was created by Noriko Inatani (hereby referred to as "Service Provider") as an Open Source service. This service is intended for use "AS IS".
 
 ## Information Collection and Use
-The Application collects information when you download and use it. This information may include information such as
-Nothing
-
-The Application does not gather precise information about the location of your mobile device.
-
-The Service Provider may use the information you provided to contact you from time to time to provide you with important information, required notices and marketing promotions.
-
-For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to nothing. The information that the Service Provider request will be retained by them and used as described in this privacy policy.
+The Application collects no information when you download and use it.
 
 ## Third Party Access
 Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.
