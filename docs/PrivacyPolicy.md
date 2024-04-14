@@ -1,5 +1,5 @@
 # CPU & Memory MenuBar Privacy Policy
-This privacy policy applies to the CPU & Memory MenuBar app (hereby referred to as "Application") for macOS devices that was created by Noriko Inatani as an Open Source service.
+This privacy policy applies to the CPU & Memory MenuBar app (hereby referred to as "Application") for macOS devices that was created by Noriko Inatani.
 
 ## Information Collection and Use
 The Application collects no information when you download and use it.
