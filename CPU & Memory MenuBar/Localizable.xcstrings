@@ -1,0 +1,92 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@%%" : {
+
+    },
+    "%@GB" : {
+
+    },
+    "App Memory:%@GB" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリメモリ:%@GB"
+          }
+        }
+      }
+    },
+    "Compressed:%@GB" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "圧縮:%@GB"
+          }
+        }
+      }
+    },
+    "Idle:%@%%" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アイドル状態:%@%%"
+          }
+        }
+      }
+    },
+    "Launch at login" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に起動"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
+          }
+        }
+      }
+    },
+    "System:%@%%" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "システム:%@%%"
+          }
+        }
+      }
+    },
+    "User:%@%%" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザ:%@%%"
+          }
+        }
+      }
+    },
+    "Wired Memory:%@GB" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確保されているメモリ:%@GB"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
