@@ -5,6 +5,7 @@
 //  Created by 稲谷究 on 2024/04/14.
 //
 
+import ServiceManagement
 import SwiftUI
 
 struct CPUView: View {
@@ -19,7 +20,7 @@ struct CPUView: View {
             Text("Idle:\(String(shared.cpuCurrent.idle))%")
             Divider()
             Toggle("Launch at login", isOn: Binding<Bool>(
-                get: { state.launchAtLogin },
+                get: { SMAppService.mainApp.status == .enabled },
                 set: { state.toggleLaunchAtLogin($0) }
             ))
             Button("Quit") {

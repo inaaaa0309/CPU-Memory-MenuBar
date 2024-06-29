@@ -8,14 +8,6 @@
 import ServiceManagement
 
 class State: ObservableObject {
-    @Published var launchAtLogin: Bool = SMAppService.mainApp.status == .enabled
-
-    init() {
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.launchAtLogin = SMAppService.mainApp.status == .enabled
-        }
-    }
-
     func toggleLaunchAtLogin(_ isOn: Bool) {
         do {
             if isOn {

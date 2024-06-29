@@ -31,7 +31,7 @@ public struct MemoryInfo {
 final public class Memory {
     public internal(set) var current = MemoryInfo()
     
-    private let gigaByte: Double = 1_073_741_824 // 2^30
+    private let gigaByte: Double = 1_073_741_824
     private let hostVmInfo64Count: mach_msg_type_number_t!
     private let hostBasicInfoCount: mach_msg_type_number_t!
     
