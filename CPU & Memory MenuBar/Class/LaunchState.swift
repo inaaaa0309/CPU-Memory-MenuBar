@@ -8,12 +8,6 @@
 import ServiceManagement
 
 class LaunchState: ObservableObject {
-    @Published var launchAtLogin: Bool
-    
-    init() {
-        launchAtLogin = SMAppService.mainApp.status == .enabled
-    }
-    
     func toggleLaunchAtLogin(_ isOn: Bool) {
         do {
             if isOn {
@@ -24,6 +18,5 @@ class LaunchState: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-        launchAtLogin = SMAppService.mainApp.status == .enabled
     }
 }

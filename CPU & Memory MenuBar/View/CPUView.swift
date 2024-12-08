@@ -20,7 +20,7 @@ struct CPUView: View {
             Text("Idle:\(String(shared.cpuCurrent.idle))%")
             Divider()
             Toggle("Launch at login", isOn: Binding<Bool>(
-                get: { launchState.launchAtLogin },
+                get: { SMAppService.mainApp.status == .enabled },
                 set: { launchState.toggleLaunchAtLogin($0) }
             ))
             Button("Quit") {
