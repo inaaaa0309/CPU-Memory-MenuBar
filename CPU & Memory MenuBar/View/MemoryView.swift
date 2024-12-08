@@ -9,7 +9,7 @@ import ServiceManagement
 import SwiftUI
 
 struct MemoryView: View {
-    @StateObject private var state = State()
+    @StateObject private var launchState = LaunchState()
     
     @ObservedObject private var shared = Observed.shared
     
@@ -20,8 +20,8 @@ struct MemoryView: View {
             Text("Compressed:\(String(shared.memoryCurrent.compressed))GB")
             Divider()
             Toggle("Launch at login", isOn: Binding<Bool>(
-                get: { SMAppService.mainApp.status == .enabled },
-                set: { state.toggleLaunchAtLogin($0) }
+                get: { launchState.launchAtLogin },
+                set: { launchState.toggleLaunchAtLogin($0) }
             ))
             Button("Quit") {
                 NSApp.terminate(nil)
