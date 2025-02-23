@@ -11,5 +11,4 @@ class Observed: ObservableObject {
     static let shared = Observed()
     
     @Published var cpuCurrent: CPUInfo = CPUInfo()
-    @Published var memoryCurrent: MemoryInfo = MemoryInfo()
 }

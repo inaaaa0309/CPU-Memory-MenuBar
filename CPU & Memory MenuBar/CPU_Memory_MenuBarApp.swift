@@ -10,9 +10,10 @@ import SwiftUI
 @main
 struct CPU_Memory_MenuBarApp: App {
     private let cpu = CPU()
-    private let memory = Memory()
     
     @ObservedObject private var shared = Observed.shared
+    
+    @State private var memoryInfo = MemoryInfo(used: 0, app: 0, wired: 0, compressed: 0)
     
     var body: some Scene {
         MenuBarExtra {
@@ -27,13 +28,17 @@ struct CPU_Memory_MenuBarApp: App {
                 }
         }
         MenuBarExtra {
-            MemoryView()
+            MemoryView(memoryInfo: $memoryInfo)
         } label: {
-            Label("\(String(format: "%.2f", shared.memoryCurrent.total))GB", systemImage: "memorychip")
+            Label("\(String(format: "%.2f", decimal2double(decimal: memoryInfo.used)))GB", systemImage: "memorychip")
                 .labelStyle(.titleAndIcon)
                 .onAppear() {
                     DispatchQueue.main.async {
-                        activateMemory()
+                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                            if let memoryInfo_ = getMemoryUsage() {
+                                memoryInfo = memoryInfo_
+                            }
+                        }
                     }
                 }
         }
@@ -46,12 +51,22 @@ struct CPU_Memory_MenuBarApp: App {
             shared.cpuCurrent = cpu.current
         }
     }
+}
+
+struct MemoryInfo {
+    var used: Decimal = 0
+    var app: Decimal = 0
+    var wired: Decimal = 0
+    var compressed: Decimal = 0
     
-    private func activateMemory() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            memory.update()
-            
-            shared.memoryCurrent = memory.current
-        }
+    init(used: Decimal, app: Decimal, wired: Decimal, compressed: Decimal) {
+        self.used = used
+        self.app = app
+        self.wired = wired
+        self.compressed = compressed
     }
+}
+
+func decimal2double(decimal: Decimal) -> Double {
+    return Double(truncating: decimal as NSNumber)
 }

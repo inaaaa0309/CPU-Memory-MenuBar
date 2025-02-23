@@ -1,89 +1,41 @@
-//
-//  Memory.swift
-//  CPU & Memory MenuBar
-//
-//  Created by 稲谷究 on 2024/04/14.
-//
+import Foundation
 
-import Darwin
+func getMemoryUsage() -> MemoryInfo? {
+    var size = mach_msg_type_number_t(MemoryLayout<vm_statistics64>.stride / MemoryLayout<integer_t>.stride)
+    var vmStats = vm_statistics64()
 
-public struct MemoryInfo {
-    public var total: Double = 0.0
-    public var app: Double = 0.0
-    public var wired: Double = 0.0
-    public var compressed: Double = 0.0
-    
-    init() {}
-    
-    init(
-        total: Double,
-        app: Double,
-        wired: Double,
-        compressed: Double
-    ) {
-        self.total = total
-        self.app = app
-        self.wired = wired
-        self.compressed = compressed
+    let host = mach_host_self()
+    let result = withUnsafeMutablePointer(to: &vmStats) {
+        $0.withMemoryRebound(to: integer_t.self, capacity: Int(size)) {
+            host_statistics64(host, HOST_VM_INFO64, $0, &size)
+        }
     }
-}
 
-final public class Memory {
-    public internal(set) var current = MemoryInfo()
-    
-    private let gigaByte: Double = 1_073_741_824
-    private let hostVmInfo64Count: mach_msg_type_number_t!
-    private let hostBasicInfoCount: mach_msg_type_number_t!
-    
-    init() {
-        hostVmInfo64Count = UInt32(MemoryLayout<vm_statistics64_data_t>.size / MemoryLayout<integer_t>.size)
-        hostBasicInfoCount = UInt32(MemoryLayout<host_basic_info_data_t>.size / MemoryLayout<integer_t>.size)
+    guard result == KERN_SUCCESS else {
+        return nil
     }
+
+    let pageSize = UInt64(vm_kernel_page_size)
     
-    private var maxMemory: Double {
-        var size: mach_msg_type_number_t = hostBasicInfoCount
-        let hostInfo = host_basic_info_t.allocate(capacity: 1)
-        let _ = hostInfo.withMemoryRebound(to: integer_t.self, capacity: Int()) { (pointer) -> kern_return_t in
-            return host_info(mach_host_self(), HOST_BASIC_INFO, pointer, &size)
-        }
-        let data = hostInfo.move()
-        hostInfo.deallocate()
-        return Double(data.max_mem) / gigaByte
-    }
+    let free = UInt64(vmStats.free_count)
+    let wire = UInt64(vmStats.wire_count)
+    let purgeable = UInt64(vmStats.purgeable_count)
+    let speculative = UInt64(vmStats.speculative_count)
+    let compressor = UInt64(vmStats.compressor_page_count)
+    let external = UInt64(vmStats.external_page_count)
+    let `internal` = UInt64(vmStats.internal_page_count)
     
-    private var vmStatistics64: vm_statistics64 {
-        var size: mach_msg_type_number_t = hostVmInfo64Count
-        let hostInfo = vm_statistics64_t.allocate(capacity: 1)
-        let _ = hostInfo.withMemoryRebound(to: integer_t.self, capacity: Int(size)) { (pointer) -> kern_return_t in
-            return host_statistics64(mach_host_self(), HOST_VM_INFO64, pointer, &size)
-        }
-        let data = hostInfo.move()
-        hostInfo.deallocate()
-        return data
-    }
+    let total = UInt64(ProcessInfo.processInfo.physicalMemory)
+
+    let used = total - pageSize * (free + external - speculative)
+    let app = pageSize * (`internal` - purgeable)
+    let wired = pageSize * wire
+    let compressed = pageSize * compressor
     
-    public func update() {
-        var result = MemoryInfo()
-        
-        defer {
-            current = result
-        }
-        
-        let load = vmStatistics64
-        
-        let unit = Double(vm_kernel_page_size) / gigaByte
-        let active = Double(load.active_count) * unit
-        let speculative = Double(load.speculative_count) * unit
-        let inactive = Double(load.inactive_count) * unit
-        let wired = Double(load.wire_count) * unit
-        let compressed = Double(load.compressor_page_count) * unit
-        let purgeable = Double(load.purgeable_count) * unit
-        let external = Double(load.external_page_count) * unit
-        let using = active + inactive + speculative + wired + compressed - purgeable - external
-        
-        result.total = round(using * 100.0) / 100.0
-        result.app = round((using - wired - compressed) * 100.0) / 100.0
-        result.wired = round(wired * 100.0) / 100.0
-        result.compressed = round(compressed * 100.0) / 100.0
-    }
+    return (MemoryInfo(
+        used: Decimal(round(decimal2double(decimal: Decimal(used) / Decimal(10737418.24)))) / Decimal(100),
+        app: Decimal(round(decimal2double(decimal: Decimal(app) / Decimal(10737418.24)))) / Decimal(100),
+        wired: Decimal(round(decimal2double(decimal: Decimal(wired) / Decimal(10737418.24)))) / Decimal(100),
+        compressed: Decimal(round(decimal2double(decimal: Decimal(compressed) / Decimal(10737418.24)))) / Decimal(100)
+    ))
 }
