@@ -7,8 +7,8 @@
 
 import ServiceManagement
 
-class LaunchState: ObservableObject {
-    func toggleLaunchAtLogin(_ isOn: Bool) {
+final class LaunchState: ObservableObject {
+    final func toggleLaunchAtLogin(_ isOn: Bool) {
         do {
             if isOn {
                 try SMAppService.mainApp.register()

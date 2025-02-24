@@ -5,67 +5,51 @@
 //  Created by 稲谷究 on 2024/04/14.
 //
 
-import Darwin
+import Foundation
 
-public struct CPUInfo {
-    public var total: Double = 0.0
-    public var system: Double = 0.0
-    public var user: Double = 0.0
-    public var idle: Double = 0.0
-    
-    init() {}
-    
-    init(total: Double, system: Double, user: Double, idle: Double) {
-        self.total = total
-        self.system = system
-        self.user = user
-        self.idle = idle
-    }
+struct CPUInfo {
+    public var used: Decimal = 0
+    public var system: Decimal = 0
+    public var user: Decimal = 0
+    public var idle: Decimal = 0
 }
 
-final public class CPU {
-    public internal(set) var current = CPUInfo()
-    
-    private let loadInfoCount: mach_msg_type_number_t!
+final class CPU {
+    private let size = UInt32(MemoryLayout<host_cpu_load_info_data_t>.size / MemoryLayout<integer_t>.size)
+    private let machHost = mach_host_self()
     private var loadPrevious = host_cpu_load_info()
     
-    init() {
-        loadInfoCount = UInt32(MemoryLayout<host_cpu_load_info_data_t>.size / MemoryLayout<integer_t>.size)
-    }
-    
-    private func hostCPULoadInfo() -> host_cpu_load_info {
-        var size: mach_msg_type_number_t = loadInfoCount
+    final private func hostCPULoadInfo() -> host_cpu_load_info {
+        var size: mach_msg_type_number_t = size
         let hostInfo = host_cpu_load_info_t.allocate(capacity: 1)
+        
         let _ = hostInfo.withMemoryRebound(to: integer_t.self, capacity: Int(size)) { (pointer) -> kern_return_t in
-            return host_statistics(mach_host_self(), HOST_CPU_LOAD_INFO, pointer, &size)
+            return host_statistics(machHost, HOST_CPU_LOAD_INFO, pointer, &size)
         }
         let data = hostInfo.move()
         hostInfo.deallocate()
+        
         return data
     }
     
-    public func update() {
-        var result = CPUInfo()
-        
-        defer {
-            current = result
-        }
-        
+    final func getCPU() -> CPUInfo {
         let load = hostCPULoadInfo()
-        let userDiff = Double(load.cpu_ticks.0 - loadPrevious.cpu_ticks.0)
-        let systemDiff = Double(load.cpu_ticks.1 - loadPrevious.cpu_ticks.1)
-        let idleDiff = Double(load.cpu_ticks.2 - loadPrevious.cpu_ticks.2)
-        let niceDiff = Double(load.cpu_ticks.3 - loadPrevious.cpu_ticks.3)
+        
+        let user = load.cpu_ticks.0 - loadPrevious.cpu_ticks.0
+        let system = load.cpu_ticks.1 - loadPrevious.cpu_ticks.1
+        let idle = load.cpu_ticks.2 - loadPrevious.cpu_ticks.2
+        let nice = load.cpu_ticks.3 - loadPrevious.cpu_ticks.3
+        
         loadPrevious = load
         
-        let totalTicks = systemDiff + userDiff + idleDiff + niceDiff
-        let system = 100.0 * systemDiff / totalTicks
-        let user = 100.0 * userDiff / totalTicks
-        let idle = 100.0 * idleDiff / totalTicks
+        let total = user + system + idle + nice
+        let used = user + system + nice
         
-        result.total = round((100.0 - idle) * 100.0) / 100.0
-        result.system = round(system * 100.0) / 100.0
-        result.user = round(user * 100.0) / 100.0
-        result.idle = round(idle * 100.0) / 100.0
+        return CPUInfo(
+            used: Decimal(round(Decimal2Double(decimal: Decimal(used) / Decimal(total) * Decimal(10000)))) / Decimal(100),
+            system: Decimal(round(Decimal2Double(decimal: Decimal(system) / Decimal(total) * Decimal(10000)))) / Decimal(100),
+            user: Decimal(round(Decimal2Double(decimal: Decimal(user) / Decimal(total) * Decimal(10000)))) / Decimal(100),
+            idle: Decimal(round(Decimal2Double(decimal: Decimal(idle) / Decimal(total) * Decimal(10000)))) / Decimal(100)
+        )
     }
 }

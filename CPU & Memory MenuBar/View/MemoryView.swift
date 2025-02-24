@@ -5,12 +5,12 @@
 //  Created by 稲谷究 on 2024/04/14.
 //
 
-import Foundation
 import ServiceManagement
 import SwiftUI
 
 struct MemoryView: View {
     @Binding var memoryInfo: MemoryInfo
+    @Binding var timer: Timer?
     
     @StateObject private var launchState = LaunchState()
     
@@ -25,6 +25,8 @@ struct MemoryView: View {
                 set: { launchState.toggleLaunchAtLogin($0) }
             ))
             Button("Quit") {
+                timer?.invalidate()
+                timer = nil
                 NSApp.terminate(nil)
             }
         }

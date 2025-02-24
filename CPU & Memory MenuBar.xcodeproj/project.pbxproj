@@ -13,7 +13,6 @@
 		664102352BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */; };
 		664102392BCBCFF600D92CCD /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664102382BCBCFF600D92CCD /* CPU.swift */; };
 		6641023B2BCBD00C00D92CCD /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641023A2BCBD00C00D92CCD /* Memory.swift */; };
-		6641023D2BCBD01C00D92CCD /* Observed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641023C2BCBD01C00D92CCD /* Observed.swift */; };
 		6641023F2BCBD02E00D92CCD /* LaunchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641023E2BCBD02E00D92CCD /* LaunchState.swift */; };
 		664102412BCBD04600D92CCD /* MemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664102402BCBD04600D92CCD /* MemoryView.swift */; };
 		664102432BCBD08E00D92CCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 664102422BCBD08E00D92CCD /* Localizable.xcstrings */; };
@@ -28,7 +27,6 @@
 		664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU_Memory_MenuBarApp.swift; sourceTree = "<group>"; };
 		664102382BCBCFF600D92CCD /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		6641023A2BCBD00C00D92CCD /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
-		6641023C2BCBD01C00D92CCD /* Observed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observed.swift; sourceTree = "<group>"; };
 		6641023E2BCBD02E00D92CCD /* LaunchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchState.swift; sourceTree = "<group>"; };
 		664102402BCBD04600D92CCD /* MemoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryView.swift; sourceTree = "<group>"; };
 		664102422BCBD08E00D92CCD /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 			children = (
 				664102382BCBCFF600D92CCD /* CPU.swift */,
 				6641023A2BCBD00C00D92CCD /* Memory.swift */,
-				6641023C2BCBD01C00D92CCD /* Observed.swift */,
 				6641023E2BCBD02E00D92CCD /* LaunchState.swift */,
 			);
 			path = Class;
@@ -180,7 +177,6 @@
 				6641023B2BCBD00C00D92CCD /* Memory.swift in Sources */,
 				664102332BCBCF4700D92CCD /* CPUView.swift in Sources */,
 				6641023F2BCBD02E00D92CCD /* LaunchState.swift in Sources */,
-				6641023D2BCBD01C00D92CCD /* Observed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +310,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"CPU & Memory MenuBar/Preview Content\"";
 				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -328,7 +324,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "inaaaa.macos.CPU-Memory-MenuBar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -345,7 +341,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"CPU & Memory MenuBar/Preview Content\"";
 				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -359,7 +355,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "inaaaa.macos.CPU-Memory-MenuBar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

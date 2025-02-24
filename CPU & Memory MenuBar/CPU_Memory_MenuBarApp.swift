@@ -5,37 +5,43 @@
 //  Created by 稲谷究 on 2024/04/14.
 //
 
+import Foundation
 import SwiftUI
 
 @main
 struct CPU_Memory_MenuBarApp: App {
+    @State private var cpuInfo = CPUInfo()
+    @State private var memoryInfo = MemoryInfo()
+    
+    @State private var cpuTimer: Timer?
+    @State private var memoryTimer: Timer?
+    
     private let cpu = CPU()
-    
-    @ObservedObject private var shared = Observed.shared
-    
-    @State private var memoryInfo = MemoryInfo(used: 0, app: 0, wired: 0, compressed: 0)
+    private let memory = Memory()
     
     var body: some Scene {
         MenuBarExtra {
-            CPUView()
+            CPUView(cpuInfo: $cpuInfo, timer: $cpuTimer)
         } label: {
-            Label("\(String(format: "%.2f", shared.cpuCurrent.total))%", systemImage: "cpu")
+            Label("\(String(describing: cpuInfo.used))%", systemImage: "cpu")
                 .labelStyle(.titleAndIcon)
                 .onAppear() {
                     DispatchQueue.main.async {
-                        activateCPU()
+                        cpuTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                            cpuInfo = cpu.getCPU()
+                        }
                     }
                 }
         }
         MenuBarExtra {
-            MemoryView(memoryInfo: $memoryInfo)
+            MemoryView(memoryInfo: $memoryInfo, timer: $memoryTimer)
         } label: {
-            Label("\(String(format: "%.2f", decimal2double(decimal: memoryInfo.used)))GB", systemImage: "memorychip")
+            Label("\(String(describing: memoryInfo.used))GB", systemImage: "memorychip")
                 .labelStyle(.titleAndIcon)
                 .onAppear() {
                     DispatchQueue.main.async {
-                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                            if let memoryInfo_ = getMemoryUsage() {
+                        memoryTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                            if let memoryInfo_ = memory.getMemory() {
                                 memoryInfo = memoryInfo_
                             }
                         }
@@ -43,30 +49,8 @@ struct CPU_Memory_MenuBarApp: App {
                 }
         }
     }
-    
-    private func activateCPU() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            cpu.update()
-            
-            shared.cpuCurrent = cpu.current
-        }
-    }
 }
 
-struct MemoryInfo {
-    var used: Decimal = 0
-    var app: Decimal = 0
-    var wired: Decimal = 0
-    var compressed: Decimal = 0
-    
-    init(used: Decimal, app: Decimal, wired: Decimal, compressed: Decimal) {
-        self.used = used
-        self.app = app
-        self.wired = wired
-        self.compressed = compressed
-    }
-}
-
-func decimal2double(decimal: Decimal) -> Double {
-    return Double(truncating: decimal as NSNumber)
+func Decimal2Double(decimal: Decimal) -> Double {
+    return (decimal as NSNumber).doubleValue
 }
