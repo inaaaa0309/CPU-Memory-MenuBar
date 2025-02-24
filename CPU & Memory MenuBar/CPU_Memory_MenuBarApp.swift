@@ -21,7 +21,8 @@ struct CPU_Memory_MenuBarApp: App {
     
     var body: some Scene {
         MenuBarExtra {
-            CPUView(cpuInfo: $cpuInfo, timer: $cpuTimer)
+            ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer)
+                .frame(width: 200)
         } label: {
             Label("\(String(describing: cpuInfo.used))%", systemImage: "cpu")
                 .labelStyle(.titleAndIcon)
@@ -33,8 +34,10 @@ struct CPU_Memory_MenuBarApp: App {
                     }
                 }
         }
+        .menuBarExtraStyle(.window)
         MenuBarExtra {
-            MemoryView(memoryInfo: $memoryInfo, timer: $memoryTimer)
+            ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer)
+                .frame(width: 200)
         } label: {
             Label("\(String(describing: memoryInfo.used))GB", systemImage: "memorychip")
                 .labelStyle(.titleAndIcon)
@@ -48,6 +51,7 @@ struct CPU_Memory_MenuBarApp: App {
                     }
                 }
         }
+        .menuBarExtraStyle(.window)
     }
 }
 

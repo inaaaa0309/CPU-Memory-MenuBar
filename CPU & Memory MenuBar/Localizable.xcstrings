@@ -1,38 +1,41 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "%@%%" : {
 
     },
     "%@GB" : {
 
     },
-    "App Memory:%@GB" : {
+    "App Memory:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリメモリ:%@GB"
+            "value" : "アプリメモリ:"
           }
         }
       }
     },
-    "Compressed:%@GB" : {
+    "Compressed:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "圧縮:%@GB"
+            "value" : "圧縮:"
           }
         }
       }
     },
-    "Idle:%@%%" : {
+    "Idle:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アイドル状態:%@%%"
+            "value" : "アイドル状態:"
           }
         }
       }
@@ -57,32 +60,32 @@
         }
       }
     },
-    "System:%@%%" : {
+    "System:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "システム:%@%%"
+            "value" : "システム:"
           }
         }
       }
     },
-    "User:%@%%" : {
+    "User:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ユーザ:%@%%"
+            "value" : "ユーザ:"
           }
         }
       }
     },
-    "Wired Memory:%@GB" : {
+    "Wired Memory:" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "確保されているメモリ:%@GB"
+            "value" : "確保されているメモリ:"
           }
         }
       }
