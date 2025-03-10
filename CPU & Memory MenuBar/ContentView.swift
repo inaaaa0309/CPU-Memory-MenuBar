@@ -15,24 +15,10 @@ struct ContentView: View {
     @Binding var cpuTimer: Timer?
     @Binding var memoryTimer: Timer?
     
-    @Environment(\.dismiss) var dismiss
-    
     @StateObject private var launchState = LaunchState()
     
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 10)
-                }
-                .buttonStyle(.plain)
-                Spacer()
-            }
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(.white)
