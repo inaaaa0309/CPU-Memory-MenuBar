@@ -21,7 +21,7 @@ struct ContentView: View {
         VStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(.white)
+                    .fill(Color("rectangle"))
                     .frame(width: 190, height: 70)
                 VStack {
                     HStack {
@@ -44,7 +44,7 @@ struct ContentView: View {
             }
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(.white)
+                    .fill(Color("rectangle"))
                     .frame(width: 190, height: 70)
                 VStack {
                     HStack {
@@ -67,7 +67,7 @@ struct ContentView: View {
             }
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(.white)
+                    .fill(Color("rectangle"))
                     .frame(width: 190, height: 50)
                 HStack {
                     VStack {
