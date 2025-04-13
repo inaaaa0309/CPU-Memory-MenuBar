@@ -15,9 +15,14 @@ struct ContentView: View {
     @Binding var cpuTimer: Timer?
     @Binding var memoryTimer: Timer?
     
+    @Binding var timerInterval: TimeInterval
+    
     @Environment(\.locale) private var locale
     
     @StateObject private var launchState = LaunchState()
+    
+    private let cpu = CPU()
+    private let memory = Memory()
     
     var body: some View {
         VStack {
@@ -70,35 +75,64 @@ struct ContentView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(Color("rectangle"))
-                    .frame(width: rectangleWidth(), height: 50)
-                HStack {
-                    VStack {
-                        Toggle("", isOn: Binding<Bool>(
-                            get: { SMAppService.mainApp.status == .enabled },
-                            set: { launchState.toggleLaunchAtLogin($0) }
-                        ))
-                        .toggleStyle(.switch)
-                        Text("Launch at login")
-                            .font(.caption2)
-                    }
-                    Button {
-                        cpuTimer?.invalidate()
-                        memoryTimer?.invalidate()
-                        cpuTimer = nil
-                        memoryTimer = nil
-                        
-                        NSApp.terminate(nil)
-                    } label: {
+                    .frame(width: rectangleWidth(), height: 110)
+                VStack {
+                    HStack {
                         VStack {
-                            Image(systemName: "power.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20)
-                            Text("Quit")
-                                .font(.caption2)
+                            Text("Display Interval: \(timerInterval, specifier: "%.0f") seconds")
+                                .font(.callout)
+                                .multilineTextAlignment(.center)
+                            Slider(value: $timerInterval, in: 1...30, step: 1) {
+                            } minimumValueLabel: {
+                                Text("1")
+                            } maximumValueLabel: {
+                                Text("30")
+                            }
+                        }
+                        Button("Apply") {
+                            cpuTimer?.invalidate()
+                            memoryTimer?.invalidate()
+                            DispatchQueue.main.async {
+                                cpuTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                                    cpuInfo = cpu.getCPU()
+                                }
+                                memoryTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                                    if let memoryInfo_ = memory.getMemory() {
+                                        memoryInfo = memoryInfo_
+                                    }
+                                }
+                            }
                         }
                     }
-                    .buttonStyle(.plain)
+                    HStack {
+                        VStack {
+                            Toggle("", isOn: Binding<Bool>(
+                                get: { SMAppService.mainApp.status == .enabled },
+                                set: { launchState.toggleLaunchAtLogin($0) }
+                            ))
+                            .toggleStyle(.switch)
+                            Text("Launch at login")
+                                .font(.caption2)
+                        }
+                        Button {
+                            cpuTimer?.invalidate()
+                            memoryTimer?.invalidate()
+                            cpuTimer = nil
+                            memoryTimer = nil
+                            
+                            NSApp.terminate(nil)
+                        } label: {
+                            VStack {
+                                Image(systemName: "power.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20)
+                                Text("Quit")
+                                    .font(.caption2)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
                 .padding(5)
             }
@@ -111,15 +145,15 @@ struct ContentView: View {
         
         switch languageCode {
         case "ar":
-            return 190
+            return 230
         case "zh":
-            return 190
+            return 230
         case "fr":
             return 250
         case "hi":
-            return 170
+            return 230
         case "ja":
-            return 220
+            return 230
         case "pt":
             return 250
         case "ru":
@@ -127,7 +161,7 @@ struct ContentView: View {
         case "es":
             return 250
         default:
-            return 190
+            return 230
         }
     }
 }
