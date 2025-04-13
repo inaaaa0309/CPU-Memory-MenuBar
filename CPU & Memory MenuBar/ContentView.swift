@@ -111,7 +111,7 @@ struct ContentView: View {
         
         switch languageCode {
         case "ar":
-            return 180
+            return 190
         case "zh":
             return 190
         case "fr":

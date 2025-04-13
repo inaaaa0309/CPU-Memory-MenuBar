@@ -61,7 +61,7 @@ struct CPU_Memory_MenuBarApp: App {
         
         switch languageCode {
         case "ar":
-            return 190
+            return 200
         case "zh":
             return 200
         case "fr":
