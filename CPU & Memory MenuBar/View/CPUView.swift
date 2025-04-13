@@ -153,6 +153,19 @@ struct CPUView: View {
         .onAppear() {
             if items.count != 0 {
                 timerInterval = items[0].timerInterval
+                
+                cpuTimer?.invalidate()
+                memoryTimer?.invalidate()
+                DispatchQueue.main.async {
+                    cpuTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                        cpuInfo = cpu.getCPU()
+                    }
+                    memoryTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                        if let memoryInfo_ = memory.getMemory() {
+                            memoryInfo = memoryInfo_
+                        }
+                    }
+                }
             }
         }
     }

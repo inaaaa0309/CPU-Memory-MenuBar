@@ -65,8 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */,
-				667F0F2E2D6C78BC008E6EC7 /* CPUView.swift */,
-				6642D7AD2DABDE7C00A0354C /* MemoryView.swift */,
+				66C9027D2DABE16B00B6F28F /* View */,
 				664102262BCBCE8F00D92CCD /* Class */,
 				664102162BCBCDB900D92CCD /* Assets.xcassets */,
 				6641021B2BCBCDB900D92CCD /* CPU_Memory_MenuBar.entitlements */,
@@ -93,6 +92,15 @@
 				6642D7AB2DABD7CB00A0354C /* Item.swift */,
 			);
 			path = Class;
+			sourceTree = "<group>";
+		};
+		66C9027D2DABE16B00B6F28F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				667F0F2E2D6C78BC008E6EC7 /* CPUView.swift */,
+				6642D7AD2DABDE7C00A0354C /* MemoryView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
