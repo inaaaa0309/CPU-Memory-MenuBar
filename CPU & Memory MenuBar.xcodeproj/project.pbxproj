@@ -13,8 +13,8 @@
 		664102392BCBCFF600D92CCD /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664102382BCBCFF600D92CCD /* CPU.swift */; };
 		6641023B2BCBD00C00D92CCD /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641023A2BCBD00C00D92CCD /* Memory.swift */; };
 		6641023F2BCBD02E00D92CCD /* LaunchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641023E2BCBD02E00D92CCD /* LaunchState.swift */; };
-		664102432BCBD08E00D92CCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 664102422BCBD08E00D92CCD /* Localizable.xcstrings */; };
 		667F0F2F2D6C78BC008E6EC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667F0F2E2D6C78BC008E6EC7 /* ContentView.swift */; };
+		66ECD80A2DAB915F00673454 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 66ECD8092DAB915F00673454 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,8 @@
 		664102382BCBCFF600D92CCD /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		6641023A2BCBD00C00D92CCD /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		6641023E2BCBD02E00D92CCD /* LaunchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchState.swift; sourceTree = "<group>"; };
-		664102422BCBD08E00D92CCD /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		667F0F2E2D6C78BC008E6EC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		66ECD8092DAB915F00673454 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +63,9 @@
 				664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */,
 				667F0F2E2D6C78BC008E6EC7 /* ContentView.swift */,
 				664102262BCBCE8F00D92CCD /* Class */,
-				664102422BCBD08E00D92CCD /* Localizable.xcstrings */,
 				664102162BCBCDB900D92CCD /* Assets.xcassets */,
 				6641021B2BCBCDB900D92CCD /* CPU_Memory_MenuBar.entitlements */,
+				66ECD8092DAB915F00673454 /* Localizable.xcstrings */,
 				664102182BCBCDB900D92CCD /* Preview Content */,
 			);
 			path = "CPU & Memory MenuBar";
@@ -117,7 +117,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					6641020E2BCBCDB800D92CCD = {
 						CreatedOnToolsVersion = 15.3;
@@ -131,6 +131,22 @@
 			knownRegions = (
 				en,
 				ja,
+				"en-AU",
+				"en-GB",
+				"zh-HK",
+				"zh-Hans",
+				"zh-Hant",
+				es,
+				"es-419",
+				"es-US",
+				ar,
+				fr,
+				"fr-CA",
+				hi,
+				Base,
+				"pt-BR",
+				"pt-PT",
+				ru,
 			);
 			mainGroup = 664102062BCBCDB800D92CCD;
 			productRefGroup = 664102102BCBCDB800D92CCD /* Products */;
@@ -149,7 +165,7 @@
 			files = (
 				6641021A2BCBCDB900D92CCD /* Preview Assets.xcassets in Resources */,
 				664102172BCBCDB900D92CCD /* Assets.xcassets in Resources */,
-				664102432BCBD08E00D92CCD /* Localizable.xcstrings in Resources */,
+				66ECD80A2DAB915F00673454 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +192,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -205,7 +222,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -230,6 +249,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -239,6 +259,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -268,7 +289,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -286,6 +309,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -299,8 +323,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CPU & Memory MenuBar/Preview Content\"";
-				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -330,8 +354,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CPU & Memory MenuBar/Preview Content\"";
-				DEVELOPMENT_TEAM = GLU49FC857;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

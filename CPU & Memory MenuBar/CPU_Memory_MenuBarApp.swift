@@ -16,13 +16,15 @@ struct CPU_Memory_MenuBarApp: App {
     @State private var cpuTimer: Timer?
     @State private var memoryTimer: Timer?
     
+    @Environment(\.locale) private var locale
+    
     private let cpu = CPU()
     private let memory = Memory()
     
     var body: some Scene {
         MenuBarExtra {
             ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer)
-                .frame(width: 200)
+                .frame(width: viewWidth())
         } label: {
             Label("\(String(describing: cpuInfo.used))%", systemImage: "cpu")
                 .labelStyle(.titleAndIcon)
@@ -37,7 +39,7 @@ struct CPU_Memory_MenuBarApp: App {
         .menuBarExtraStyle(.window)
         MenuBarExtra {
             ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer)
-                .frame(width: 200)
+                .frame(width: viewWidth())
         } label: {
             Label("\(String(describing: memoryInfo.used))GB", systemImage: "memorychip")
                 .labelStyle(.titleAndIcon)
@@ -52,6 +54,31 @@ struct CPU_Memory_MenuBarApp: App {
                 }
         }
         .menuBarExtraStyle(.window)
+    }
+    
+    private func viewWidth() -> CGFloat {
+        let languageCode = locale.language.languageCode
+        
+        switch languageCode {
+        case "ar":
+            return 190
+        case "zh":
+            return 200
+        case "fr":
+            return 260
+        case "hi":
+            return 180
+        case "ja":
+            return 230
+        case "pt":
+            return 260
+        case "ru":
+            return 290
+        case "es":
+            return 260
+        default:
+            return 200
+        }
     }
 }
 
