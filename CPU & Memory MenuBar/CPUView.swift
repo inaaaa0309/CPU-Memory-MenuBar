@@ -6,9 +6,15 @@
 //
 
 import ServiceManagement
+import SwiftData
 import SwiftUI
 
-struct ContentView: View {
+struct CPUView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var items: [Item]
+    
+    @Environment(\.locale) private var locale
+    
     @Binding var cpuInfo: CPUInfo
     @Binding var memoryInfo: MemoryInfo
     
@@ -16,8 +22,6 @@ struct ContentView: View {
     @Binding var memoryTimer: Timer?
     
     @Binding var timerInterval: TimeInterval
-    
-    @Environment(\.locale) private var locale
     
     @StateObject private var launchState = LaunchState()
     
@@ -34,17 +38,17 @@ struct ContentView: View {
                     HStack {
                         Text("System:")
                         Spacer()
-                        Text("\(String(describing: cpuInfo.system))%")
+                        Text("\(cpuInfo.system)%")
                     }
                     HStack {
                         Text("User:")
                         Spacer()
-                        Text("\(String(describing: cpuInfo.user))%")
+                        Text("\(cpuInfo.user)%")
                     }
                     HStack {
                         Text("Idle:")
                         Spacer()
-                        Text("\(String(describing: cpuInfo.idle))%")
+                        Text("\(cpuInfo.idle)%")
                     }
                 }
                 .padding(5)
@@ -57,17 +61,17 @@ struct ContentView: View {
                     HStack {
                         Text("App Memory:")
                         Spacer()
-                        Text("\(String(describing: memoryInfo.app))GB")
+                        Text("\(memoryInfo.app)GB")
                     }
                     HStack {
                         Text("Wired Memory:")
                         Spacer()
-                        Text("\(String(describing: memoryInfo.wired))GB")
+                        Text("\(memoryInfo.wired)GB")
                     }
                     HStack {
                         Text("Compressed:")
                         Spacer()
-                        Text("\(String(describing: memoryInfo.compressed))GB")
+                        Text("\(memoryInfo.compressed)GB")
                     }
                 }
                 .padding(5)
@@ -101,6 +105,14 @@ struct ContentView: View {
                                         memoryInfo = memoryInfo_
                                     }
                                 }
+                            }
+                            if items.count == 0 {
+                                withAnimation {
+                                    let newItem = Item(timerIntarval: timerInterval)
+                                    modelContext.insert(newItem)
+                                }
+                            } else {
+                                items[0].timerInterval = timerInterval
                             }
                         }
                     }
@@ -138,6 +150,11 @@ struct ContentView: View {
             }
         }
         .padding()
+        .onAppear() {
+            if items.count != 0 {
+                timerInterval = items[0].timerInterval
+            }
+        }
     }
     
     private func rectangleWidth() -> CGFloat {

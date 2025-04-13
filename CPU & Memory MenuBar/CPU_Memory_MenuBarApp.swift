@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 @main
 struct CPU_Memory_MenuBarApp: App {
+    @Environment(\.locale) private var locale
+    
     @State private var cpuInfo = CPUInfo()
     @State private var memoryInfo = MemoryInfo()
     
@@ -18,44 +21,54 @@ struct CPU_Memory_MenuBarApp: App {
     
     @State private var timerInterval: TimeInterval = 1
     
-    @Environment(\.locale) private var locale
-    
     private let cpu = CPU()
     private let memory = Memory()
     
-    var body: some Scene {
-        MenuBarExtra {
-            ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer, timerInterval: $timerInterval)
-                .frame(width: viewWidth())
-        } label: {
-            Label("\(String(describing: cpuInfo.used))%", systemImage: "cpu")
-                .labelStyle(.titleAndIcon)
-                .onAppear() {
-                    DispatchQueue.main.async {
-                        cpuTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
-                            cpuInfo = cpu.getCPU()
-                        }
-                    }
-                }
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            Item.self,
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
         }
-        .menuBarExtraStyle(.window)
-        MenuBarExtra {
-            ContentView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer, timerInterval: $timerInterval)
-                .frame(width: viewWidth())
-        } label: {
-            Label("\(String(describing: memoryInfo.used))GB", systemImage: "memorychip")
-                .labelStyle(.titleAndIcon)
-                .onAppear() {
-                    DispatchQueue.main.async {
-                        memoryTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
-                            if let memoryInfo_ = memory.getMemory() {
-                                memoryInfo = memoryInfo_
+    }()
+    
+    var body: some Scene {
+        Group {
+            MenuBarExtra {
+                CPUView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer, timerInterval: $timerInterval)
+                    .frame(width: viewWidth())
+            } label: {
+                Label("\(String(describing: cpuInfo.used))%", systemImage: "cpu")
+                    .labelStyle(.titleAndIcon)
+                    .onAppear() {
+                        DispatchQueue.main.async {
+                            cpuTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                                cpuInfo = cpu.getCPU()
+                            }
+                            memoryTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
+                                if let memoryInfo_ = memory.getMemory() {
+                                    memoryInfo = memoryInfo_
+                                }
                             }
                         }
                     }
-                }
+            }
+            .menuBarExtraStyle(.window)
+            MenuBarExtra {
+                MemoryView(cpuInfo: $cpuInfo, memoryInfo: $memoryInfo, cpuTimer: $cpuTimer, memoryTimer: $memoryTimer, timerInterval: $timerInterval)
+                    .frame(width: viewWidth())
+            } label: {
+                Label("\(String(describing: memoryInfo.used))GB", systemImage: "memorychip")
+                    .labelStyle(.titleAndIcon)
+            }
+            .menuBarExtraStyle(.window)
         }
-        .menuBarExtraStyle(.window)
+        .modelContainer(sharedModelContainer)
     }
     
     private func viewWidth() -> CGFloat {
