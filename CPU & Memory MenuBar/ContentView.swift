@@ -29,20 +29,17 @@ struct ContentView: View {
                     HStack {
                         Text("System:")
                         Spacer()
-                        //Text("\(String(describing: cpuInfo.system))%")
-                        Text("99.99%")
+                        Text("\(String(describing: cpuInfo.system))%")
                     }
                     HStack {
                         Text("User:")
                         Spacer()
-                        //Text("\(String(describing: cpuInfo.user))%")
-                        Text("99.99%")
+                        Text("\(String(describing: cpuInfo.user))%")
                     }
                     HStack {
                         Text("Idle:")
                         Spacer()
-                        //Text("\(String(describing: cpuInfo.idle))%")
-                        Text("99.99%")
+                        Text("\(String(describing: cpuInfo.idle))%")
                     }
                 }
                 .padding(5)
@@ -55,20 +52,17 @@ struct ContentView: View {
                     HStack {
                         Text("App Memory:")
                         Spacer()
-                        //Text("\(String(describing: memoryInfo.app))GB")
-                        Text("15.99GB")
+                        Text("\(String(describing: memoryInfo.app))GB")
                     }
                     HStack {
                         Text("Wired Memory:")
                         Spacer()
-                        //Text("\(String(describing: memoryInfo.wired))GB")
-                        Text("15.99GB")
+                        Text("\(String(describing: memoryInfo.wired))GB")
                     }
                     HStack {
                         Text("Compressed:")
                         Spacer()
-                        //Text("\(String(describing: memoryInfo.compressed))GB")
-                        Text("15.99GB")
+                        Text("\(String(describing: memoryInfo.compressed))GB")
                     }
                 }
                 .padding(5)
