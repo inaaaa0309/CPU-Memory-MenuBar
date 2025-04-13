@@ -79,7 +79,7 @@ struct MemoryView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(Color("rectangle"))
-                    .frame(width: rectangleWidth(), height: 110)
+                    .frame(width: rectangleWidth(), height: rectangleHeight())
                 VStack {
                     HStack {
                         VStack {
@@ -174,6 +174,23 @@ struct MemoryView: View {
             return 250
         default:
             return 230
+        }
+    }
+    
+    private func rectangleHeight() -> CGFloat {
+        let languageCode = locale.language.languageCode
+        
+        switch languageCode {
+        case "fr":
+            return 130
+        case "pt":
+            return 130
+        case "ru":
+            return 130
+        case "es":
+            return 130
+        default:
+            return 110
         }
     }
 }
