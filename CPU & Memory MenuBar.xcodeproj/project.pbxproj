@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		660BE5512DC8B460005CC65B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660BE5502DC8B460005CC65B /* AppDelegate.swift */; };
 		664102172BCBCDB900D92CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664102162BCBCDB900D92CCD /* Assets.xcassets */; };
 		6641021A2BCBCDB900D92CCD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664102192BCBCDB900D92CCD /* Preview Assets.xcassets */; };
 		664102352BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		660BE5502DC8B460005CC65B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6641020F2BCBCDB800D92CCD /* CPU & Memory MenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CPU & Memory MenuBar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		664102162BCBCDB900D92CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		664102192BCBCDB900D92CCD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -63,7 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				664102342BCBCF6400D92CCD /* CPU_Memory_MenuBarApp.swift */,
-				66C9027D2DABE16B00B6F28F /* View */,
+				660BE5502DC8B460005CC65B /* AppDelegate.swift */,
+				667F0F2E2D6C78BC008E6EC7 /* ContentView.swift */,
 				664102262BCBCE8F00D92CCD /* Class */,
 				664102162BCBCDB900D92CCD /* Assets.xcassets */,
 				6641021B2BCBCDB900D92CCD /* CPU_Memory_MenuBar.entitlements */,
@@ -90,14 +93,6 @@
 				6642D7AB2DABD7CB00A0354C /* Item.swift */,
 			);
 			path = Class;
-			sourceTree = "<group>";
-		};
-		66C9027D2DABE16B00B6F28F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				667F0F2E2D6C78BC008E6EC7 /* ContentView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +186,7 @@
 				667F0F2F2D6C78BC008E6EC7 /* ContentView.swift in Sources */,
 				664102392BCBCFF600D92CCD /* CPU.swift in Sources */,
 				6641023B2BCBD00C00D92CCD /* Memory.swift in Sources */,
+				660BE5512DC8B460005CC65B /* AppDelegate.swift in Sources */,
 				6642D7AC2DABD7CB00A0354C /* Item.swift in Sources */,
 				6641023F2BCBD02E00D92CCD /* LaunchState.swift in Sources */,
 			);
