@@ -9,21 +9,17 @@ import ServiceManagement
 import SwiftData
 import SwiftUI
 
-struct MemoryView: View {
+struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     
+    @EnvironmentObject private var delegate: AppDelegate
+    
     @Environment(\.locale) private var locale
     
-    @Binding var cpuInfo: CPUInfo
-    @Binding var memoryInfo: MemoryInfo
-    
-    @Binding var cpuTimer: Timer?
-    @Binding var memoryTimer: Timer?
-    
-    @Binding var timerInterval: TimeInterval
-    
     @StateObject private var launchState = LaunchState()
+    
+    private let monoFont = Font(NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular))
     
     private let cpu = CPU()
     private let memory = Memory()
@@ -38,17 +34,20 @@ struct MemoryView: View {
                     HStack {
                         Text("System:")
                         Spacer()
-                        Text("\(cpuInfo.system)%")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.cpuInfo.system)))%")
+                            .font(monoFont)
                     }
                     HStack {
                         Text("User:")
                         Spacer()
-                        Text("\(cpuInfo.user)%")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.cpuInfo.user)))%")
+                            .font(monoFont)
                     }
                     HStack {
                         Text("Idle:")
                         Spacer()
-                        Text("\(cpuInfo.idle)%")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.cpuInfo.idle)))%")
+                            .font(monoFont)
                     }
                 }
                 .padding(5)
@@ -61,17 +60,20 @@ struct MemoryView: View {
                     HStack {
                         Text("App Memory:")
                         Spacer()
-                        Text("\(memoryInfo.app)GB")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.memoryInfo.app)))GB")
+                            .font(monoFont)
                     }
                     HStack {
                         Text("Wired Memory:")
                         Spacer()
-                        Text("\(memoryInfo.wired)GB")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.memoryInfo.wired)))GB")
+                            .font(monoFont)
                     }
                     HStack {
                         Text("Compressed:")
                         Spacer()
-                        Text("\(memoryInfo.compressed)GB")
+                        Text("\(String(format: "%.2f", Decimal2Double(decimal: delegate.memoryInfo.compressed)))GB")
+                            .font(monoFont)
                     }
                 }
                 .padding(5)
@@ -83,10 +85,10 @@ struct MemoryView: View {
                 VStack {
                     HStack {
                         VStack {
-                            Text("Display Interval: \(timerInterval, specifier: "%.0f") seconds")
+                            Text("Display Interval: \(delegate.timerInterval, specifier: "%.0f") seconds")
                                 .font(.callout)
                                 .multilineTextAlignment(.center)
-                            Slider(value: $timerInterval, in: 1...30, step: 1) {
+                            Slider(value: $delegate.timerInterval, in: 1...30, step: 1) {
                             } minimumValueLabel: {
                                 Text("1")
                             } maximumValueLabel: {
@@ -94,25 +96,21 @@ struct MemoryView: View {
                             }
                         }
                         Button("Apply") {
-                            cpuTimer?.invalidate()
-                            memoryTimer?.invalidate()
-                            DispatchQueue.main.async {
-                                cpuTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
-                                    cpuInfo = cpu.getCPU()
-                                }
-                                memoryTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { _ in
-                                    if let memoryInfo_ = memory.getMemory() {
-                                        memoryInfo = memoryInfo_
-                                    }
+                            delegate.timer?.invalidate()
+                            delegate.timer = Timer.scheduledTimer(withTimeInterval: delegate.timerInterval, repeats: true) { _ in
+                                delegate.cpuInfo = cpu.getCPU()
+                                if let memoryInfo_ = memory.getMemory() {
+                                    delegate.memoryInfo = memoryInfo_
                                 }
                             }
+                            
                             if items.count == 0 {
                                 withAnimation {
-                                    let newItem = Item(timerIntarval: timerInterval)
+                                    let newItem = Item(timerIntarval: delegate.timerInterval)
                                     modelContext.insert(newItem)
                                 }
                             } else {
-                                items[0].timerInterval = timerInterval
+                                items[0].timerInterval = delegate.timerInterval
                             }
                         }
                     }
@@ -127,10 +125,8 @@ struct MemoryView: View {
                                 .font(.caption2)
                         }
                         Button {
-                            cpuTimer?.invalidate()
-                            memoryTimer?.invalidate()
-                            cpuTimer = nil
-                            memoryTimer = nil
+                            delegate.timer?.invalidate()
+                            delegate.timer = nil
                             
                             NSApp.terminate(nil)
                         } label: {
